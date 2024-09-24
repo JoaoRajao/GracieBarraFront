@@ -1,0 +1,97 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f0f3f6;
+    --text-color: #2c3e50;
+    --header-bg: #34495e;
+    --table-header-bg: #2c3e50;
+    --table-row-even: #ecf0f1;
+    --table-row-hover: #e0e6e9;
+    --status-pago: #27ae60;
+    --status-pendente: #f39c12;
+    --status-atrasado: #e74c3c;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--header-bg);
+}
+
+.payment-info {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--shadow-color);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--table-header-bg);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: var(--table-row-even);
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status.pago {
+    background-color: var(--status-pago);
+    color: white;
+}
+
+.status.pendente {
+    background-color: var(--status-pendente);
+    color: white;
+}
+
+.status.atrasado {
+    background-color: var(--status-atrasado);
+    color: white;
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color: #2980b9;
+}

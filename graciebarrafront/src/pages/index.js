@@ -70,8 +70,37 @@ export default function HomePage() {
               <a href="#" className="logo">
                 <span className="span">Gracie Barra</span>
               </a>
-              <p className="footer-brand-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, adipisci!</p>
+              <p className="footer-brand-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, adipisci!
+              </p>
+              <div className="wrapper">
+                <img src="/assets/images/footer-clock.png" width="34" height="34" loading="lazy" alt="Clock" />
+                <ul className="footer-brand-list">
+                  <li>
+                    <p className="footer-brand-title">Segunda - Sexta</p>
+                    <p>8:00 - 22:00</p>
+                  </li>
+                  <li>
+                    <p className="footer-brand-title">Sábado - Domingo</p>
+                    <p>8:00 - 18:00</p>
+                  </li>
+                </ul>
+              </div>
             </div>
+            <ul className="footer-list">
+              <li><p className="footer-list-title has-before">Links</p></li>
+              <li><a href="#" className="footer-link">Home</a></li>
+              <li><a href="#" className="footer-link">Sobre</a></li>
+              <li><a href="#" className="footer-link">Aulas</a></li>
+              <li><a href="#" className="footer-link">Contato</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <div className="container">
+            <p className="copyright">
+              &copy; 2024 All Rights Reserved By <a href="#" className="copyright-link">Gracie Barra</a>
+            </p>
           </div>
         </div>
       </footer>

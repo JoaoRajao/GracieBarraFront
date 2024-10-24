@@ -10,7 +10,7 @@ const WorkoutRegistration = () => {
   const [newWorkout, setNewWorkout] = useState({ day: '', type: '', time: '' });
   const [error, setError] = useState('');
 
-  // Função para carregar os treinos
+  
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get('/api/workout/list');
@@ -24,7 +24,7 @@ const WorkoutRegistration = () => {
     fetchWorkouts();
   }, []);
 
-  // Função para criar um novo treino
+ 
   const handleCreateWorkout = async (e) => {
     e.preventDefault();
     try {

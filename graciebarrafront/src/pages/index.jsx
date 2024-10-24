@@ -1,11 +1,10 @@
-
 import React from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
- 
+
   const workoutSchedule = {
     '08:00': { Monday: ['Jiu-Jitsu'], Tuesday: ['MMA'], Wednesday: ['Muay Thai'], Thursday: ['Boxe'], Friday: ['Jiu-Jitsu'], Saturday: ['CrossFit'] },
     '10:00': { Monday: ['Boxe'], Tuesday: ['Muay Thai'], Wednesday: ['Jiu-Jitsu'], Thursday: ['MMA'], Friday: ['CrossFit'], Saturday: ['Yoga'] },
@@ -30,19 +29,51 @@ const HomePage = () => {
 
       <Header />
 
-      <main style={{ backgroundColor: '#151c23', color: '#fff', padding: '20px' }}>
-        <section className="hero" style={{ padding: '40px 0', textAlign: 'center' }}>
-          <div className="container">
-            <h1 className="hero-title">Acompanhe seu progresso</h1>
-            <p className="section-text">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis ipsa doloribus impedit architecto.
-            </p>
-            <div className="hero-banner">
-              <img src="/assets/images/gracie2.png" width="500" height="753" alt="hero banner" />
-            </div>
-          </div>
-        </section>
+      
+      
 
+      <main style={{ backgroundColor: '#151c23', color: '#fff', padding: '20px' }}>
+        <article>
+          {/* HERO Section */}
+          <section className="hero bg-dark has-after has-bg-image" id="home" aria-label="hero" data-section style={{ padding: '40px 0', textAlign: 'center' }}>
+            <div className="container">
+              <div className="hero-content">
+                <p className="hero-subtitle">
+                  <strong className="strong">Gracie</strong>Barra
+                </p>
+                <h1 className="h1 hero-title">Acompanhe seu progresso</h1>
+                <p className="section-text">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis ipsa doloribus reprehenderit impedit architecto consequuntur aperiam perspiciatis perferendis qui quam numquam, dicta, eveniet quis quidem vitae ducimus incidunt ullam et.
+                </p>
+              </div>
+
+              <div className="hero-banner">
+                <img src="/assets/images/gracie2.png" width="500" height="753" alt="hero banner" />
+              </div>
+            </div>
+          </section>
+
+          {/* ABOUT Section */}
+          <section className="section about" id="about" aria-label="about">
+            <div className="container">
+              <div className="about-banner has-after">
+                <img src="/assets/images/gracie1.png" width="660" height="648" loading="lazy" alt="about banner" className="w-100" />
+              </div>
+
+              <div className="about-content">
+                <h2 className="h2 section-title">Vizualize a agenda das aulas</h2>
+                <p className="section-text">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt autem culpa qui ab fuga placeat veritatis maiores, dicta alias nulla, earum optio aut? Aliquid quae nesciunt molestiae? Libero, enim voluptas!
+                </p>
+                <p className="section-text">
+                  Integer placerat vitae metus posuere tincidunt. Nullam suscipit ante ac aliquet viverra vestibulum ante ipsum primis.
+                </p>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        {/* Workout Schedule Section */}
         <section className="workout-schedule" style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '20px' }}>Horários das Modalidades de Treino</h2>
           <table style={{

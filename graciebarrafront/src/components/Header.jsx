@@ -1,6 +1,7 @@
  
 import React from 'react';
 
+
 const Header = () => (
   <header className="header" data-header>
     <link rel="stylesheet" href="/assets/css/styles.css" />

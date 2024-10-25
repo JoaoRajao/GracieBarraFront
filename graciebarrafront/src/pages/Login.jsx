@@ -1,10 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
-
+//import style from '../assets/css/login.module.css';
 
 const Login = () => {
   return (
     <>
+    <link rel="stylesheet" href="/assets/css/login.module.css" />
       <Head>
         <title>Login</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />

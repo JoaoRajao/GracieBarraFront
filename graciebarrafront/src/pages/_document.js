@@ -6,12 +6,12 @@ export default function Document() {
     <Html>
       <Head>
         <link rel="icon" href="/assets/images/logo.png" />
-        <link rel="stylesheet" href="/assets/css/style.css" />
+        {/* <link rel="stylesheet" href="/assets/css/style.css" /> */}
         
         {/* 
         <link rel="stylesheet" href="/assets/css/exibirAlunos.css" />
         <link rel="stylesheet" href="/assets/css/adminPanel.css" /> */}
-        {/* <link rel="stylesheet" href="/assets/css/login.css" /> */}
+         {/* <link rel="stylesheet" href="/assets/css/login.module.css" />  */}
         {/* <link rel="stylesheet" href="/assets/css/cadastroAluno.css" />
        
         <link rel="stylesheet" href="/assets/css/pagamentoAluno.css" />

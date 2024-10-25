@@ -4,7 +4,7 @@ import React from 'react';
 
 const Header = () => (
   <header className="header" data-header>
-    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/style.module.css" />
     <div className="container">
       <a href="#" className="logo">
         <img src="/assets/images/logo.png" alt="Logo" className="logo-img" />

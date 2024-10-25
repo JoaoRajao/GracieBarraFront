@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+
 const HomePage = () => {
 
   const workoutSchedule = {
@@ -16,6 +17,7 @@ const HomePage = () => {
 
   return (
     <>
+    <link rel="stylesheet" href="../assets/css/style.module.css" />
       <Head>
         <title>Gracie Barra</title>
         <link rel="icon" type="image/png" href="/assets/images/logo.png" />

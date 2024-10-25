@@ -45,6 +45,7 @@ const ExibirAlunos = () => {
 
   return (
     <>
+    <link rel="stylesheet" href="/assets/css/exibirAlunos.css" />
       <Head>
         <title>Exibir Alunos - Gracie Barra</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />

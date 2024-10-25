@@ -7,6 +7,8 @@ import Footer from '../components/Footer';
 const AdminPanel = () => {
   return (
     <>
+    <link rel="stylesheet" href="/assets/css/adminPanel.css" />
+
       <Head>
         <title>Menu do Administrador</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />

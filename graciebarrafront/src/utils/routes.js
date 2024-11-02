@@ -1,10 +1,13 @@
+import AdminPanel from "../pages/AdminPanel";
+
 const routes = {
     login: '/Login',
-    cadastroAluno: '/cadastroAluno',
+    cadastroAluno: '/CadastroAluno',
     exibirAlunos: '/ExibirAlunos',
     pagamentoAluno: '/pagamentoAluno',
-    agendamento: '/agendamento',
+    agendamento: '/WorkoutRegistration',
     planosCadastro: '/PlanosCadastro',
+    AdminPanel: '/AdminPanel',
   };
   
   export default routes;

@@ -1,5 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
+import routes from '../utils/routes'; 
 
 
 const Login = () => {
@@ -48,7 +50,7 @@ const Login = () => {
             </div>
 
             <a href="#">Esqueceu sua Senha?</a>
-            <input type="submit" className="btn" value="Login" />
+            <Link href={routes.AdminPanel} className="btn">Login</Link>
           </form>
         </div>
       </div>

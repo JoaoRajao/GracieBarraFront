@@ -1,14 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+import routes from '../utils/routes'; 
 
 const AdminPanel = () => {
   return (
     <>
-    <link rel="stylesheet" href="/assets/css/adminPanel.css" />
-
+     <link rel="stylesheet" href="../assets/css/adminPanel.css" />
       <Head>
         <title>Menu do Administrador</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />
@@ -33,45 +33,35 @@ const AdminPanel = () => {
           <i className="fas fa-user-plus"></i>
           <h2>Cadastrar Aluno</h2>
           <p>Adicione novos alunos ao sistema</p>
-          <a href="cadastroAluno.html" className="btn">
-            Cadastrar
-          </a>
+          <Link href={routes.cadastroAluno} className="btn">Cadastrar</Link>
         </div>
 
         <div className="menu-item">
           <i className="fas fa-users"></i>
           <h2>Visualizar Alunos</h2>
           <p>Veja a lista de todos os alunos</p>
-          <a href="exibirAlunos.html" className="btn">
-            Visualizar
-          </a>
+          <Link href={routes.exibirAlunos} className="btn">Visualizar</Link>
         </div>
 
         <div className="menu-item">
           <i className="fas fa-money-bill-wave"></i>
           <h2>Visualizar Pagamentos</h2>
           <p>Acompanhe os pagamentos dos alunos</p>
-          <a href="pagamentoAluno.html" className="btn">
-            Visualizar
-          </a>
+          <Link href={routes.pagamentoAluno} className="btn">Visualizar</Link>
         </div>
 
         <div className="menu-item">
           <i className="fas fa-calendar-alt"></i>
           <h2>Agendar Treinos</h2>
           <p>Gerencie os horários de treinos</p>
-          <a href="agendamento.html" className="btn">
-            Agendar
-          </a>
+          <Link href={routes.agendamento} className="btn">Agendar</Link>
         </div>
 
         <div className="menu-item">
           <i className="fas fa-file-invoice-dollar"></i>
           <h2>Gerenciar Planos</h2>
           <p>Cadastre e gerencie os planos</p>
-          <a href="planosCadastro.html" className="btn">
-            Gerenciar
-          </a>
+          <Link href={routes.planosCadastro} className="btn">Gerenciar</Link>
         </div>
       </main>
 

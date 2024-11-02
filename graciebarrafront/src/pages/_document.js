@@ -6,7 +6,7 @@ export default function Document() {
     <Html>
       <Head>
         <link rel="icon" href="/assets/images/logo.png" />
-        {/* <link rel="stylesheet" href="/assets/css/style.css" /> */}
+        <link rel="stylesheet" href="/assets/css/style.css" /> 
         
         {/* 
         <link rel="stylesheet" href="/assets/css/exibirAlunos.css" />

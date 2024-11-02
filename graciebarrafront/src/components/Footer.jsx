@@ -3,6 +3,7 @@ import React from 'react';
 
 const Footer = () => (
   <footer className="footer">
+    
     <div className="section footer-top bg-dark has-bg-image">
       <div className="container">
         <div className="footer-brand">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header'; // Importa o Header
-import Footer from '../components/Footer'; // Importa o Footer
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const ExibirAlunos = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -45,7 +45,7 @@ const ExibirAlunos = () => {
 
   return (
     <>
-    <link rel="stylesheet" href="/assets/css/exibirAlunos.css" />
+   
       <Head>
         <title>Exibir Alunos - Gracie Barra</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />
@@ -87,8 +87,7 @@ const ExibirAlunos = () => {
             </tr>
           </thead>
           <tbody id="alunosTableBody">
-            {/* Aqui você renderizaria os alunos dinamicamente */}
-            {/* Exemplo de linha de aluno */}
+           
             <tr>
               <td>1</td>
               <td>João Vitor</td>

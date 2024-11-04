@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import Header from '../components/Header';
+import Header from '../components/Header2';
 import Footer from '../components/Footer';
 import routes from '../utils/routes'; 
 

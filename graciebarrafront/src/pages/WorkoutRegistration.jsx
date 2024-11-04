@@ -1,7 +1,7 @@
 // src/pages/WorkoutRegistration.jsx
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header';
+import Header from '../components/Header2';
 import Footer from '../components/Footer';
 import axios from 'axios';
 

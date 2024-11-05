@@ -55,13 +55,13 @@ const HomePage = () => {
             </div>
           </section>
 
-          {/* ABOUT Section */}
+          
           <section className="section about" id="about" aria-label="about">
             <div className="container">
-              <div className="about-banner has-after">
-                <img src="/assets/images/gracie1.png" width="660" height="648" loading="lazy" alt="about banner" className="w-100" />
+              <div className="hero-banner">
+               <img src="/assets/images/gracie1.png" width="660" height="648" loading="lazy" alt="about banner" className="w-100" />
               </div>
-
+              
               <div className="about-content">
                 <h2 className="h2 section-title">Vizualize a agenda das aulas</h2>
                 <p className="section-text">
@@ -75,7 +75,6 @@ const HomePage = () => {
           </section>
         </article>
 
-        {/* Workout Schedule Section */}
         <section className="workout-schedule" style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ marginBottom: '20px' }}>Horários das Modalidades de Treino</h2>
           <table style={{

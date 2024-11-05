@@ -9,6 +9,7 @@ const AdminPanel = () => {
   return (
     <>
      <link rel="stylesheet" href="../assets/css/adminPanel.css" />
+     <link rel="stylesheet" href="../assets/css/style.module.css" />
       <Head>
         <title>Menu do Administrador</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />

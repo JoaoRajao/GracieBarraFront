@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header2';
 import Footer from '../components/Footer';
+import { listarUsuarios, atualizarUsuario, excluirUsuario } from '../utils/api';
 
 const ExibirAlunos = () => {
+  const [alunos, setAlunos] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAluno, setSelectedAluno] = useState(null);
+
+  useEffect(() => {
+    const fetchAlunos = async () => {
+      try {
+        const data = await listarUsuarios();
+        setAlunos(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Erro ao listar alunos:', error);
+      }
+    };
+    fetchAlunos();
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -30,22 +44,39 @@ const ExibirAlunos = () => {
     setSuccessModalOpen(false);
   };
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para salvar alterações
-    setSuccessModalOpen(true);
-    closeModals();
+    const updatedAluno = {
+      ...selectedAluno,
+      nome: e.target.editNome.value,
+      cpf: e.target.editCpf.value,
+      telefone: e.target.editNumero.value,
+      email: e.target.editEmail.value,
+    };
+
+    try {
+      await atualizarUsuario(selectedAluno.id, updatedAluno);
+      setAlunos(alunos.map((aluno) => (aluno.id === selectedAluno.id ? updatedAluno : aluno)));
+      setSuccessModalOpen(true);
+      closeModals();
+    } catch (error) {
+      console.error('Erro ao atualizar aluno:', error);
+    }
   };
 
-  const handleDeleteConfirm = () => {
-    // Lógica para confirmar exclusão
-    setSuccessModalOpen(true);
-    closeModals();
+  const handleDeleteConfirm = async () => {
+    try {
+      await excluirUsuario(selectedAluno.id);
+      setAlunos(alunos.filter((aluno) => aluno.id !== selectedAluno.id));
+      setSuccessModalOpen(true);
+      closeModals();
+    } catch (error) {
+      console.error('Erro ao excluir aluno:', error);
+    }
   };
 
   return (
     <>
-   
       <Head>
         <title>Exibir Alunos - Gracie Barra</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />
@@ -87,24 +118,25 @@ const ExibirAlunos = () => {
             </tr>
           </thead>
           <tbody id="alunosTableBody">
-           
-            <tr>
-              <td>1</td>
-              <td>João Vitor</td>
-              <td>000.000.000-00</td>
-              <td>(31) 99999-9999</td>
-              <td>joao@example.com</td>
-              <td>12 meses</td>
-              <td>Premium</td>
-              <td>
-                <button onClick={() => handleEditClick({ id: 1, nome: 'João Vitor' })}>
-                  Editar
-                </button>
-                <button onClick={() => handleDeleteClick({ id: 1, nome: 'João Vitor' })}>
-                  Excluir
-                </button>
-              </td>
-            </tr>
+            {alunos
+              .filter((aluno) =>
+                aluno.nome.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((aluno) => (
+                <tr key={aluno.id}>
+                  <td>{aluno.id}</td>
+                  <td>{aluno.nome}</td>
+                  <td>{aluno.cpf}</td>
+                  <td>{aluno.telefone}</td>
+                  <td>{aluno.email}</td>
+                  <td>{aluno.tempo_assinatura}</td>
+                  <td>{aluno.tipo_assinatura}</td>
+                  <td>
+                    <button onClick={() => handleEditClick(aluno)}>Editar</button>
+                    <button onClick={() => handleDeleteClick(aluno)}>Excluir</button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
@@ -117,25 +149,29 @@ const ExibirAlunos = () => {
           <div className="modal-content">
             <h2>Editar Aluno</h2>
             <form id="editForm" onSubmit={handleEditSubmit}>
-              <input type="hidden" id="editId" value={selectedAluno?.id} />
               <div className="form-group">
                 <label htmlFor="editNome">Nome:</label>
-                <input type="text" id="editNome" defaultValue={selectedAluno?.nome} required />
+                <input
+                  type="text"
+                  id="editNome"
+                  defaultValue={selectedAluno?.nome}
+                  required
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="editCpf">CPF:</label>
-                <input type="text" id="editCpf" required />
+                <input type="text" id="editCpf" defaultValue={selectedAluno?.cpf} required />
               </div>
               <div className="form-group">
                 <label htmlFor="editNumero">Número:</label>
-                <input type="tel" id="editNumero" required />
+                <input type="tel" id="editNumero" defaultValue={selectedAluno?.telefone} required />
               </div>
               <div className="form-group">
                 <label htmlFor="editEmail">E-mail:</label>
-                <input type="email" id="editEmail" required />
+                <input type="email" id="editEmail" defaultValue={selectedAluno?.email} required />
               </div>
               <button type="submit" className="btn-save">Salvar Alterações</button>
-              <button type="button" id="cancelEdit" className="btn-cancel" onClick={closeModals}>
+              <button type="button" className="btn-cancel" onClick={closeModals}>
                 Cancelar
               </button>
             </form>
@@ -149,10 +185,10 @@ const ExibirAlunos = () => {
           <div className="modal-content">
             <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir este aluno?</p>
-            <button id="confirmDelete" className="btn-delete" onClick={handleDeleteConfirm}>
+            <button className="btn-delete" onClick={handleDeleteConfirm}>
               Sim, Excluir
             </button>
-            <button id="cancelDelete" className="btn-cancel" onClick={closeModals}>
+            <button className="btn-cancel" onClick={closeModals}>
               Cancelar
             </button>
           </div>
@@ -164,9 +200,9 @@ const ExibirAlunos = () => {
         <div id="successModal" className="modal">
           <div className="modal-content">
             <h2>Sucesso!</h2>
-            <p id="successMessage">Ação realizada com sucesso.</p>
+            <p>Ação realizada com sucesso.</p>
             <i className="fas fa-check-circle"></i>
-            <button id="closeSuccessModal" className="btn-close" onClick={closeModals}>
+            <button className="btn-close" onClick={closeModals}>
               Fechar
             </button>
           </div>

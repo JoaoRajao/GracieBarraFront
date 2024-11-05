@@ -1,25 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import Footer from '../components/Footer';
 import Header from '../components/Header2';
+import { listarUsuarios, cadastrarUsuario, atualizarUsuario, excluirUsuario } from '../utils/api';
 
 const CadastroAluno = () => {
+  const [usuarios, setUsuarios] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [usuarioAtual, setUsuarioAtual] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const data = await listarUsuarios();
+        setUsuarios(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Erro ao listar usuários:', error);
+      }
+    };
+    fetchUsuarios();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowPopup(true); // Mostra o popup de sucesso
+    const dadosUsuario = {
+      contato_emergencia_nome: e.target.contato_emergencia_nome?.value || '',
+      contato_emergencia_telefone: e.target.contato_emergencia_telefone?.value || '',
+      cpf: e.target.cpf?.value || '',
+      email: e.target.email?.value || '',
+      endereco: e.target.endereco?.value || '',
+      modalidade_luta: e.target.modalidade_luta?.value || '',
+      nome: e.target.nome?.value || '',
+      telefone: e.target.numero?.value || '',
+      tempo_assinatura: e.target.tempo_assinatura?.value || '',
+      tipo_assinatura: e.target.tipo_assinatura?.value || '',
+    };
+    
+    try {
+      await cadastrarUsuario(dadosUsuario);
+      setShowPopup(true);
+      const data = await listarUsuarios();
+      setUsuarios(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Erro ao cadastrar usuário:', error);
+    }
   };
 
   const handleClosePopup = () => {
-    setShowPopup(false); // Fecha o popup
+    setShowPopup(false);
   };
 
   return (
     <>
-    
-      <Header />
       <Head>
         <title>Cadastro de Aluno - Gracie Barra</title>
         <link rel="shortcut icon" href="/assets/images/logo.png" />
@@ -27,9 +60,9 @@ const CadastroAluno = () => {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
-        <script src="https://kit.fontawesome.com/a81368914c.js" async></script>
       </Head>
-      
+
+      <Header />
 
       <main className="container">
         <h1>Cadastro de Aluno</h1>
@@ -62,16 +95,14 @@ const CadastroAluno = () => {
             <div className="form-group">
               <label htmlFor="tempo">Tempo de Assinatura</label>
               <select id="tempo" name="tempo_assinatura" required>
-                <option value="1">1 mês</option>
-                <option value="2">3 meses</option>
-                <option value="3">1 ano</option>
+                <option value="Monthly">1 mês</option>
+                <option value="Quarterly">3 meses</option>
+                <option value="Yearly">1 ano</option>
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="assinatura">Tipo de Assinatura</label>
-              <select id="assinatura" name="tipo_assinatura" required>
-            
-              </select>
+              <input type="text" id="assinatura" name="tipo_assinatura" required />
             </div>
           </div>
           <div className="form-row">
@@ -80,10 +111,18 @@ const CadastroAluno = () => {
               <input type="text" id="modalidade_luta" name="modalidade_luta" />
             </div>
           </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="contato_emergencia_nome">Contato Emergência Nome</label>
+              <input type="text" id="contato_emergencia_nome" name="contato_emergencia_nome" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="contato_emergencia_telefone">Contato Emergência Telefone</label>
+              <input type="tel" id="contato_emergencia_telefone" name="contato_emergencia_telefone" />
+            </div>
+          </div>
           <button type="submit" className="btn-submit">Cadastrar Aluno</button>
         </form>
-        
-       
 
         {showPopup && (
           <div className="popup" id="successPopup">
@@ -98,9 +137,9 @@ const CadastroAluno = () => {
           </div>
         )}
       </main>
-      <Footer/>
+
+      <Footer />
     </>
-    
   );
 };
 

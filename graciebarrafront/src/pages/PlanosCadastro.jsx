@@ -1,29 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import Header from '../components/Header2';
+import { listarPlanos, cadastrarPlano, atualizarPlano, excluirPlano } from '../utils/api';
 
 const PlanosCadastro = () => {
+  const [planos, setPlanos] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [planoAtual, setPlanoAtual] = useState(null);
 
-  const handleFormToggle = () => {
-    setShowForm(!showForm);
-  };
+  useEffect(() => {
+    const fetchPlanos = async () => {
+      try {
+        const data = await listarPlanos();
+        setPlanos(data);
+      } catch (error) {
+        console.error('Erro ao buscar planos:', error);
+      }
+    };
+    fetchPlanos();
+  }, []);
 
-  const handleEditToggle = () => {
-    setShowEditModal(!showEditModal);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Função para cadastrar o plano
+    const dadosPlano = {
+      categoria: e.target.categoria.value,
+      nome: e.target.nome.value,
+      tipo: e.target.tipo.value,
+      preco: e.target.preco.value,
+      taxaMatricula: e.target.taxaMatricula.value,
+    };
+    
+    try {
+      await cadastrarPlano(dadosPlano);
+      setShowForm(false);
+      const data = await listarPlanos();
+      setPlanos(data);
+    } catch (error) {
+      console.error('Erro ao cadastrar plano:', error);
+    }
   };
 
-  const handleEditSubmit = (e) => {
+  const handleEdit = (plano) => {
+    setPlanoAtual(plano);
+    setShowEditModal(true);
+  };
+
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
-    // Função para salvar alterações
-    handleEditToggle();
+    const dadosPlano = {
+      categoria: e.target.editCategoria.value,
+      nome: e.target.editNome.value,
+      tipo: e.target.editTipo.value,
+      preco: e.target.editPreco.value,
+      taxaMatricula: e.target.editTaxaMatricula.value,
+    };
+
+    try {
+      await atualizarPlano(planoAtual.id, dadosPlano);
+      setShowEditModal(false);
+      const data = await listarPlanos();
+      setPlanos(data);
+    } catch (error) {
+      console.error('Erro ao atualizar plano:', error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await excluirPlano(id);
+      const data = await listarPlanos();
+      setPlanos(data);
+    } catch (error) {
+      console.error('Erro ao excluir plano:', error);
+    }
   };
 
   return (
@@ -35,12 +85,11 @@ const PlanosCadastro = () => {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
-        <script src="https://kit.fontawesome.com/a81368914c.js" async></script>
       </Head>
-      <Header />
+
       <main className="container">
         <h1>Cadastro e Gerenciamento de Planos</h1>
-        <button onClick={handleFormToggle} className="btn-action">
+        <button onClick={() => setShowForm(!showForm)} className="btn-action">
           Cadastrar Novo Plano
         </button>
 
@@ -58,7 +107,7 @@ const PlanosCadastro = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="tipo">Tipo de Plano:</label>
-                <input type="text" id="tipo" name="tipo" required />
+                <input type="number" id="tipo" name="tipo" required />
               </div>
               <div className="form-group">
                 <label htmlFor="preco">Preço:</label>
@@ -72,7 +121,7 @@ const PlanosCadastro = () => {
                 <button type="submit" className="btn-submit">
                   Cadastrar Plano
                 </button>
-                <button type="button" className="btn-cancel" onClick={handleFormToggle}>
+                <button type="button" className="btn-cancel" onClick={() => setShowForm(false)}>
                   Cancelar
                 </button>
               </div>
@@ -93,14 +142,26 @@ const PlanosCadastro = () => {
                 <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="plansTableBody">
-              {/* Planos cadastrados vão ser listados aqui */}
+            <tbody>
+              {planos.map((plano) => (
+                <tr key={plano.id}>
+                  <td>{plano.category}</td>
+                  <td>{plano.name}</td>
+                  <td>{plano.plan_type}</td>
+                  <td>{plano.price}</td>
+                  <td>{plano.registration_fee}</td>
+                  <td>
+                    <button onClick={() => handleEdit(plano)} className="btn">Editar</button>
+                    <button onClick={() => handleDelete(plano.id)} className="btn btn-delete">Excluir</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         <Link href="/adminPanel">
-          voltar
+          Voltar ao Menu
         </Link>
 
         {showEditModal && (
@@ -108,32 +169,31 @@ const PlanosCadastro = () => {
             <div className="modal-content">
               <h2>Editar Plano</h2>
               <form id="editForm" onSubmit={handleEditSubmit}>
-                <input type="hidden" id="editId" />
                 <div className="form-group">
                   <label htmlFor="editCategoria">Categoria:</label>
-                  <input type="text" id="editCategoria" required />
+                  <input type="text" id="editCategoria" name="editCategoria" defaultValue={planoAtual.category} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="editNome">Nome:</label>
-                  <input type="text" id="editNome" required />
+                  <input type="text" id="editNome" name="editNome" defaultValue={planoAtual.name} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="editTipo">Tipo de Plano:</label>
-                  <input type="text" id="editTipo" required />
+                  <input type="number" id="editTipo" name="editTipo" defaultValue={planoAtual.plan_type} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="editPreco">Preço:</label>
-                  <input type="number" id="editPreco" step="0.01" required />
+                  <input type="number" id="editPreco" name="editPreco" defaultValue={planoAtual.price} step="0.01" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="editTaxaMatricula">Taxa de Matrícula:</label>
-                  <input type="number" id="editTaxaMatricula" step="0.01" required />
+                  <input type="number" id="editTaxaMatricula" name="editTaxaMatricula" defaultValue={planoAtual.registration_fee} step="0.01" required />
                 </div>
                 <div className="form-actions">
                   <button type="submit" className="btn-submit">
                     Salvar Alterações
                   </button>
-                  <button type="button" className="btn-cancel" onClick={handleEditToggle}>
+                  <button type="button" className="btn-cancel" onClick={() => setShowEditModal(false)}>
                     Cancelar
                   </button>
                 </div>

@@ -1,0 +1,177 @@
+.container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 20px auto;
+    padding-top: 80px; /* Ajuste conforme a altura do Header */
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Garante que a .container fique acima de elementos com z-index menor */
+  }
+  
+
+  h1 {
+    font-size: var(--fs-3);
+    font-family: var(--ff-catamaran);
+    color: var(--rich-black-fogra-29-1);
+    font-weight: var(--fw-900);
+    margin-bottom: 20px;
+  }
+  
+  /* Botão de ação principal */
+  .btn-action {
+    background-color: var(--coquelicot);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-8);
+    font-weight: var(--fw-700);
+    cursor: pointer;
+    transition: var(--transition-1);
+  }
+  
+  .btn-action:hover {
+    background-color: var(--coquelicot_20);
+  }
+  
+  /* Formulário de cadastro */
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .plan-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: var(--radius-10);
+    background-color: var(--gainsboro);
+    box-shadow: var(--shadow-1);
+  }
+  
+  .plan-form h2 {
+    font-size: var(--fs-5);
+    font-family: var(--ff-catamaran);
+    color: var(--rich-black-fogra-29-1);
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: var(--fw-700);
+    color: var(--sonic-silver);
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    padding: 8px;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-5);
+  }
+  
+  /* Botões de ações no formulário */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .btn-submit {
+    background-color: var(--rich-black-fogra-29-2);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-8);
+    font-weight: var(--fw-700);
+    cursor: pointer;
+    transition: var(--transition-1);
+  }
+  
+  .btn-submit:hover {
+    background-color: var(--rich-black-fogra-29-1);
+  }
+  
+  .btn-cancel {
+    background-color: var(--coquelicot);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-8);
+    cursor: pointer;
+    transition: var(--transition-1);
+  }
+  
+  .btn-cancel:hover {
+    background-color: var(--coquelicot_10);
+  }
+  
+  /* Lista de planos */
+  .plans-list {
+    margin-top: 30px;
+  }
+  
+  .plans-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .plans-list th,
+  .plans-list td {
+    padding: 12px;
+    border-bottom: 1px solid var(--light-gray);
+    font-size: var(--fs-6);
+    color: var(--rich-black-fogra-29-1);
+    text-align: center;
+  }
+  
+  .plans-list th {
+    background-color: var(--silver-metallic);
+    color: var(--white);
+    font-weight: var(--fw-700);
+  }
+  
+  /* Modal para edição de planos */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--rich-black-fogra-29_50);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--radius-10);
+    max-width: 600px;
+    width: 90%;
+    box-shadow: var(--shadow-2);
+  }
+  
+  .modal-content h2 {
+    font-size: var(--fs-5);
+    color: var(--rich-black-fogra-29-1);
+    font-family: var(--ff-catamaran);
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .form-actions {
+      flex-direction: column;
+    }
+  
+    .plans-list table,
+    .plans-list th,
+    .plans-list td {
+      font-size: 1.4rem;
+    }
+  }
+  
